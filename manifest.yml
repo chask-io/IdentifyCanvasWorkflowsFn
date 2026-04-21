@@ -13,17 +13,27 @@ function:
 
   parameters:
     required:
+      - name: node_id
+        type: string
+        description: "Node ID for widget configuration injection (standard Chask param)"
       - name: canvas_uuid
         type: string
         description: "UUID del canvas a analizar"
-      - name: node_id
-        type: string
-        description: "ID del nodo que invoca la funcion (parametro estandar de Chask)"
+      - name: workflows
+        type: array
+        description: >
+          Array de flujos de trabajo propuestos por el agente, cada uno con
+          nombre, descripcion y lista de UUIDs de nodos.
+          Ejemplo:
+          [{"name":"Envio de cobranza","description":"Flujo para enviar mensajes de cobro",
+          "node_ids":["uuid-1","uuid-2","uuid-3"]},
+          {"name":"Registro de pago","description":"Procesa respuestas y registra pagos",
+          "node_ids":["uuid-3","uuid-4","uuid-5"]}]
 
     optional:
       - name: create_selections
         type: boolean
-        description: "Si es false, retorna los flujos identificados sin crear selecciones (modo preview). Por defecto true."
+        description: "Si es false, retorna los flujos validados sin crear selecciones (modo preview). Por defecto true."
         default: true
 
   widget:
