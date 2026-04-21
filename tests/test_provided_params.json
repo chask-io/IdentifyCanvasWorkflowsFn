@@ -5,23 +5,18 @@
     "canvas_uuid": "3c93269a-c7b3-4a6a-9934-7bc42d02f75d",
     "node_id": "identify-canvas-workflows-test-node",
     "create_selections": false,
-    "workflows": [
-      {
-        "name": "Extracción del RUT",
+    "selections": {
+      "Extracción del RUT": {
         "description": "Recepción del email con PDF y extracción del RUT hasta la decisión de validez.",
-        "node_ids": ["integration-1", "desc-0", "desc-1", "desc-2"]
+        "node_ids": ["integration-1", "desc-0", "desc-1", "desc-2"],
+        "edge_ids": ["edge-0", "edge-0b", "edge-3"]
       },
-      {
-        "name": "Respuestas al cliente",
+      "Respuestas al cliente": {
         "description": "Emisión de email de resultado y WhatsApp opcional según el resultado de la validación.",
-        "node_ids": ["desc-2", "desc-3", "desc-4"]
-      },
-      {
-        "name": "Flujo inexistente",
-        "description": "Test de limpieza — debería descartarse porque ningún node_id es válido.",
-        "node_ids": ["does-not-exist", "fake-node"]
+        "node_ids": ["desc-2", "desc-3", "desc-4"],
+        "edge_ids": ["edge-4", "edge-5", "edge-6"]
       }
-    ]
+    }
   },
   "widget_params": {},
   "prompt": "",
@@ -29,7 +24,7 @@
   "extra_params": {},
   "files": [],
   "metadata": {
-    "description": "Validate two overlapping workflows (sharing desc-2) plus a bogus one that must be dropped; preview mode, no selections created",
+    "description": "Validate two overlapping selections (sharing desc-2) with caller-provided explicit edge_ids; preview mode, no canvas write",
     "expected_status": "success"
   }
 }
