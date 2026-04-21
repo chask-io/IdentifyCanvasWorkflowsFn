@@ -1,0 +1,16 @@
+{
+  "function_name": "IdentifyCanvasWorkflowsFn",
+  "test_type": "operator_params",
+  "args": {},
+  "widget_params": {},
+  "prompt": "Analiza el canvas 3c93269a-c7b3-4a6a-9934-7bc42d02f75d para identificar los flujos de trabajo independientes, pero no crees selecciones (modo preview).",
+  "event_type": "function_call",
+  "extra_params": {
+    "is_operator_params_test": true
+  },
+  "files": [],
+  "metadata": {
+    "description": "Operator generates params from a natural-language request (preview mode)",
+    "expected_status": "success"
+  }
+}

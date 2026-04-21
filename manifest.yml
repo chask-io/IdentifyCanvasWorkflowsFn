@@ -1,0 +1,36 @@
+function:
+  name: IdentifyCanvasWorkflowsFn
+  runtime: python3.12
+  handler: handler.lambda_handler
+  description: |
+    Analiza los nodos de un canvas para identificar flujos de trabajo independientes y crea una seleccion nombrada para cada flujo. Usala cuando un canvas represente mas de un proceso de negocio (por ejemplo envio + registro, cobranza + pago) y necesites separarlos para materializarlos como pipelines distintos. Si el canvas es un unico flujo coherente, la funcion no crea selecciones adicionales.
+  timeout: 120
+  memory_size: 512
+
+  layers:
+    - foundationMinimal
+    - foundationApi
+
+  parameters:
+    required:
+      - name: canvas_uuid
+        type: string
+        description: "UUID del canvas a analizar"
+      - name: node_id
+        type: string
+        description: "ID del nodo que invoca la funcion (parametro estandar de Chask)"
+
+    optional:
+      - name: create_selections
+        type: boolean
+        description: "Si es false, retorna los flujos identificados sin crear selecciones (modo preview). Por defecto true."
+        default: true
+
+  widget:
+    enabled: false
+    type: dynamic_widget
+    params: []
+
+  testing:
+    handles_files: false
+    produces_files: false
