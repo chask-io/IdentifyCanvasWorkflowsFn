@@ -3,14 +3,14 @@
   "test_type": "operator_params",
   "args": {},
   "widget_params": {},
-  "prompt": "Tengo el canvas 3c93269a-c7b3-4a6a-9934-7bc42d02f75d. Describe un solo proceso con 6 nodos, pero para esta prueba agrúpalos conceptualmente en dos flujos superpuestos:\n\n1) \"Extracción del RUT\" — recepción del email y extracción del RUT hasta la decisión de validez. Nodos: integration-1, desc-0, desc-1, desc-2.\n2) \"Respuestas al cliente\" — envío de email de resultado y WhatsApp opcional. Nodos: desc-2, desc-3, desc-4. (desc-2 es compartido a propósito.)\n\nLlama a IdentifyCanvasWorkflowsFn con ese canvas_uuid, node_id = \"identify-canvas-workflows-test-node\", create_selections = false, y un arreglo workflows que represente esos dos flujos (cada uno con name, description y node_ids).",
+  "prompt": "Tengo el canvas 3c93269a-c7b3-4a6a-9934-7bc42d02f75d. Describe un solo proceso con 6 nodos, pero para esta prueba agrúpalos conceptualmente en dos flujos superpuestos:\n\n1) \"Extracción del RUT\" — recepción del email y extracción del RUT hasta la decisión de validez. Nodos: integration-1, desc-0, desc-1, desc-2. Edges internos: edge-0, edge-0b, edge-3.\n2) \"Respuestas al cliente\" — envío de email de resultado y WhatsApp opcional. Nodos: desc-2, desc-3, desc-4. Edges internos: edge-4, edge-5, edge-6. (desc-2 es compartido a propósito.)\n\nLlama a IdentifyCanvasWorkflowsFn con ese canvas_uuid, node_id = \"identify-canvas-workflows-test-node\", create_selections = false, y un objeto 'selections' donde cada clave sea el nombre de la selección y su valor contenga description, node_ids y edge_ids (arrays de strings).",
   "event_type": "function_call",
   "extra_params": {
     "is_operator_params_test": true
   },
   "files": [],
   "metadata": {
-    "description": "Operator extracts the two-workflow grouping (with overlap on desc-2) from the prompt in preview mode",
+    "description": "Operator builds the two-selection dict (with overlap on desc-2) with explicit edge_ids from the prompt in preview mode",
     "expected_status": "success"
   }
 }
