@@ -300,8 +300,10 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             f"Processing event for org: {orchestration_event.organization.organization_id}"
         )
 
-        # Instantiate backend with orchestration event
-        backend = FunctionBackend(orchestration_event)
+        # Instantiate backend with orchestration event and optional OpenAI key
+        # (orchestrator injects openai_api_key at event top level for LLM-using Lambdas)
+        openai_api_key = event.get("openai_api_key") if isinstance(event, dict) else None
+        backend = FunctionBackend(orchestration_event, openai_api_key=openai_api_key)
 
         # Execute business logic (developer's code)
         result = backend.process_request()
