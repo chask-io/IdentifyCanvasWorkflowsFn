@@ -8,7 +8,7 @@ creates a named CanvasSelection for each one.
 import json
 import logging
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional  # noqa: F401
 
 from api.canvas_requests import canvas_api_manager
 from chask_foundation.backend.models import OrchestrationEvent
@@ -34,8 +34,13 @@ SYSTEM_PROMPT = (
 class FunctionBackend:
     """Backend for IdentifyCanvasWorkflowsFn."""
 
-    def __init__(self, orchestration_event: OrchestrationEvent):
+    def __init__(
+        self,
+        orchestration_event: OrchestrationEvent,
+        openai_api_key: Optional[str] = None,
+    ):
         self.orchestration_event = orchestration_event
+        self.openai_api_key = openai_api_key
         logger.info(
             "Initialized FunctionBackend for org: %s",
             orchestration_event.organization.organization_id,
@@ -161,7 +166,7 @@ class FunctionBackend:
             internal_orchestration_session_uuid=self.orchestration_event.internal_orchestration_session_uuid,
             orchestration_event_uuid=str(self.orchestration_event.event_id),
             default_model=LLM_MODEL,
-            openai_api_key=os.environ.get("OPENAI_API_KEY"),
+            openai_api_key=self.openai_api_key or os.environ.get("OPENAI_API_KEY"),
         )
 
         try:
