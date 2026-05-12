@@ -43,13 +43,6 @@ function:
               "edge_ids": ["edge-5","edge-6","edge-7"]
             }
           }
-
-    optional:
-      - name: create_selections
-        type: boolean
-        description: "Si es false, valida las selecciones sin crearlas (modo preview). Por defecto true."
-        default: true
-
   widget:
     enabled: false
     type: dynamic_widget

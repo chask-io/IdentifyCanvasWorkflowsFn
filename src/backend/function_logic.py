@@ -2,7 +2,7 @@
 Business logic for IdentifyCanvasWorkflowsFn (v3).
 
 Validates caller-provided selection groupings against the canvas and
-(optionally) persists them as named CanvasSelections. The caller supplies
+persists them as named CanvasSelections. The caller supplies
 both node_ids and edge_ids per selection — this Lambda performs no LLM
 calls and does not auto-derive edges. Any malformed or out-of-canvas ID
 rejects the WHOLE call.
@@ -50,10 +50,6 @@ class FunctionBackend:
         selections_raw = tool_args.get("selections")
         selections = self._parse_selections(selections_raw)
 
-        create_selections = self._coerce_bool(
-            tool_args.get("create_selections", True), default=True
-        )
-
         canvas = self._fetch_canvas_detail(canvas_uuid)
         nodes = self._extract_nodes(canvas)
         edges = self._extract_edges(canvas)
@@ -63,9 +59,6 @@ class FunctionBackend:
         cleaned = self._validate_selections(
             selections, valid_node_ids, valid_edge_ids
         )
-
-        if not create_selections:
-            return self._format_preview(cleaned)
 
         persisted = self._persist_selections(canvas_uuid, cleaned)
         return self._format_created(persisted)
@@ -99,19 +92,6 @@ class FunctionBackend:
                 "menos una selección con nombre, node_ids y edge_ids."
             )
         return raw
-
-    @staticmethod
-    def _coerce_bool(value: Any, default: bool) -> bool:
-        if isinstance(value, bool):
-            return value
-        if value is None:
-            return default
-        if isinstance(value, str):
-            s = value.strip().lower()
-            if s == "":
-                return default
-            return s not in ("false", "0", "no")
-        return bool(value)
 
     # ──────────────────────────── canvas fetching
 
@@ -287,20 +267,6 @@ class FunctionBackend:
         return results
 
     # ──────────────────────────── response formatting
-
-    @staticmethod
-    def _format_preview(selections: Dict[str, Dict[str, Any]]) -> str:
-        lines = ["## Selecciones validadas (preview, no persistidas)", ""]
-        for name, spec in selections.items():
-            description = spec["description"]
-            n_nodes = len(spec["node_ids"])
-            n_edges = len(spec["edge_ids"])
-            bullet = f"- **{name}**"
-            if description:
-                bullet += f" — {description}"
-            bullet += f" ({n_nodes} nodos, {n_edges} edges)"
-            lines.append(bullet)
-        return "\n".join(lines)
 
     @staticmethod
     def _format_created(results: List[Dict[str, Any]]) -> str:
