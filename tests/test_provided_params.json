@@ -2,19 +2,35 @@
   "function_name": "IdentifyCanvasWorkflowsFn",
   "test_type": "provided_params",
   "args": {
-    "canvas_uuid": "3c93269a-c7b3-4a6a-9934-7bc42d02f75d",
+    "canvas_uuid": "0df08529-66a8-4e4d-874c-dcb5cb69229d",
     "node_id": "identify-canvas-workflows-test-node",
-    "create_selections": false,
     "selections": {
-      "Extracción del RUT": {
-        "description": "Recepción del email con PDF y extracción del RUT hasta la decisión de validez.",
-        "node_ids": ["integration-1", "desc-0", "desc-1", "desc-2"],
-        "edge_ids": ["edge-0", "edge-0b", "edge-3"]
-      },
-      "Respuestas al cliente": {
-        "description": "Emisión de email de resultado y WhatsApp opcional según el resultado de la validación.",
-        "node_ids": ["desc-2", "desc-3", "desc-4"],
-        "edge_ids": ["edge-4", "edge-5", "edge-6"]
+      "Flujo principal": {
+        "description": "test",
+        "node_ids": [
+          "person-ops-1",
+          "integration-csv-1",
+          "desc-proceso-1",
+          "integration-db-1",
+          "desc-persistencia-1",
+          "integration-email-1",
+          "person-hr-1",
+          "ctx-resumen-1",
+          "ctx-emails-empleados-1",
+          "desc-email-individual-1"
+        ],
+        "edge_ids": [
+          "edge-1",
+          "edge-2",
+          "edge-3",
+          "edge-4",
+          "edge-5",
+          "edge-6",
+          "edge-7",
+          "edge-8",
+          "edge-9",
+          "edge-10"
+        ]
       }
     }
   },
@@ -24,7 +40,7 @@
   "extra_params": {},
   "files": [],
   "metadata": {
-    "description": "Validate two overlapping selections (sharing desc-2) with caller-provided explicit edge_ids; preview mode, no canvas write",
+    "description": "Persist one real local-canvas selection covering all nodes and edges",
     "expected_status": "success"
   }
 }
