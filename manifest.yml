@@ -3,7 +3,7 @@ function:
   runtime: python3.12
   handler: handler.lambda_handler
   description: |
-    Crea selecciones nombradas sobre un canvas a partir de agrupaciones explícitas provistas por el llamador. Usala cuando un canvas represente más de un proceso de negocio (por ejemplo envío + registro, cobranza + pago) y necesites separarlos para materializarlos como pipelines distintos. El llamador (agente canvas_designer) decide qué nodos y qué aristas componen cada selección; esta función no infiere agrupaciones ni aristas — solo valida y persiste. Si algún ID de nodo o arista no existe en el canvas, rechaza la llamada completa con un mensaje explicativo.
+    Crea selecciones nombradas sobre un canvas a partir de agrupaciones explícitas provistas por el llamador. Soporta canvases legacy y flowchart v2. En v2 valida lanes, nodes, edges, data, credentials y flow.order; además incluye automáticamente data/credentials vinculadas a los lanes/nodes seleccionados. Si algún ID no existe en el canvas, rechaza la llamada completa con un mensaje explicativo.
   timeout: 120
   memory_size: 512
 
@@ -22,25 +22,27 @@ function:
       - name: selections
         type: object
         description: >
-          Objeto (dict) donde cada clave es el NOMBRE de la selección a crear
-          y su valor contiene la descripción, los IDs de nodos y los IDs de
-          edges que la componen. Todos los IDs son strings semánticos del
-          canvas (ej. "person-1", "desc-2", "edge-3"), NO UUIDs.
-          Cada valor DEBE incluir exactamente estos campos:
-            - description (string)
-            - node_ids (array de strings, no vacío)
-            - edge_ids (array de strings, puede estar vacío si no hay aristas dentro)
+          Objeto (dict) donde cada clave es el NOMBRE de la selección a crear.
+          Para canvas v2, preferir element_ids con lanes, nodes, edges, data,
+          credentials y flow. Para legacy se aceptan node_ids y edge_ids.
           Ejemplo:
           {
             "Envio de cobranza": {
               "description": "Envia mensajes de cobro a clientes con pendientes",
-              "node_ids": ["person-2","desc-1","integration-2"],
-              "edge_ids": ["edge-2","edge-3"]
-            },
-            "Registro de pago": {
-              "description": "Procesa respuestas y registra pagos en planilla",
-              "node_ids": ["person-2","desc-2","integration-1","person-3"],
-              "edge_ids": ["edge-5","edge-6","edge-7"]
+              "element_ids": {
+                "lanes": ["lane_agent","lane_whatsapp"],
+                "nodes": ["node_trigger","node_send","node_result"],
+                "edges": ["edge_trigger_to_send","edge_send_to_result"],
+                "data": ["data_customer_phone"],
+                "credentials": [],
+                "flow": {
+                  "order": [
+                    {"nodeId": "node_trigger", "edgeId": "edge_trigger_to_send"},
+                    {"nodeId": "node_send", "edgeId": "edge_send_to_result"},
+                    {"nodeId": "node_result"}
+                  ]
+                }
+              }
             }
           }
   widget:

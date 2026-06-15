@@ -2,40 +2,23 @@
   "function_name": "IdentifyCanvasWorkflowsFn",
   "test_type": "operator_params",
   "args": {
-    "canvas_uuid": "0df08529-66a8-4e4d-874c-dcb5cb69229d",
+    "canvas_uuid": "c020105d-ea44-478c-a684-d54febc13508",
     "node_id": "identify-canvas-workflows-test-node",
     "selections": {
       "Flujo principal": {
         "description": "test",
         "node_ids": [
-          "person-ops-1",
-          "integration-csv-1",
-          "desc-proceso-1",
-          "integration-db-1",
-          "desc-persistencia-1",
-          "integration-email-1",
-          "person-hr-1",
-          "ctx-resumen-1",
-          "ctx-emails-empleados-1",
-          "desc-email-individual-1"
+          "node_publish_test_start",
+          "node_publish_test_action"
         ],
         "edge_ids": [
-          "edge-1",
-          "edge-2",
-          "edge-3",
-          "edge-4",
-          "edge-5",
-          "edge-6",
-          "edge-7",
-          "edge-8",
-          "edge-9",
-          "edge-10"
+          "edge_publish_test_start_to_action"
         ]
       }
     }
   },
   "widget_params": {},
-  "prompt": "Llama a IdentifyCanvasWorkflowsFn usando exactamente estos parametros JSON:\n\n{\n  \"canvas_uuid\": \"0df08529-66a8-4e4d-874c-dcb5cb69229d\",\n  \"node_id\": \"identify-canvas-workflows-test-node\",\n  \"selections\": {\n    \"Flujo principal\": {\n      \"description\": \"test\",\n      \"node_ids\": [\"person-ops-1\", \"integration-csv-1\", \"desc-proceso-1\", \"integration-db-1\", \"desc-persistencia-1\", \"integration-email-1\", \"person-hr-1\", \"ctx-resumen-1\", \"ctx-emails-empleados-1\", \"desc-email-individual-1\"],\n      \"edge_ids\": [\"edge-1\", \"edge-2\", \"edge-3\", \"edge-4\", \"edge-5\", \"edge-6\", \"edge-7\", \"edge-8\", \"edge-9\", \"edge-10\"]\n    }\n  }\n}\n\nNo omitas canvas_uuid, node_id ni selections.",
+  "prompt": "Llama a IdentifyCanvasWorkflowsFn usando exactamente estos parametros JSON:\n\n{\n  \"canvas_uuid\": \"c020105d-ea44-478c-a684-d54febc13508\",\n  \"node_id\": \"identify-canvas-workflows-test-node\",\n  \"selections\": {\n    \"Flujo principal\": {\n      \"description\": \"test\",\n      \"node_ids\": [\"node_publish_test_start\", \"node_publish_test_action\"],\n      \"edge_ids\": [\"edge_publish_test_start_to_action\"]\n    }\n  }\n}\n\nNo omitas canvas_uuid, node_id ni selections. No uses otro canvas_uuid.",
   "event_type": "function_call",
   "extra_params": {
     "is_operator_params_test": true
