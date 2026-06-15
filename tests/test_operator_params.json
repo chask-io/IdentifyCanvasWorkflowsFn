@@ -8,17 +8,17 @@
       "Flujo principal": {
         "description": "test",
         "node_ids": [
-          "node_start",
-          "node_draft"
+          "node_publish_test_start",
+          "node_publish_test_action"
         ],
         "edge_ids": [
-          "edge_start_draft"
+          "edge_publish_test_start_to_action"
         ]
       }
     }
   },
   "widget_params": {},
-  "prompt": "Llama a IdentifyCanvasWorkflowsFn usando exactamente estos parametros JSON:\n\n{\n  \"canvas_uuid\": \"c020105d-ea44-478c-a684-d54febc13508\",\n  \"node_id\": \"identify-canvas-workflows-test-node\",\n  \"selections\": {\n    \"Flujo principal\": {\n      \"description\": \"test\",\n      \"node_ids\": [\"node_start\", \"node_draft\"],\n      \"edge_ids\": [\"edge_start_draft\"]\n    }\n  }\n}\n\nNo omitas canvas_uuid, node_id ni selections. No uses otro canvas_uuid.",
+  "prompt": "Llama a IdentifyCanvasWorkflowsFn usando exactamente estos parametros JSON:\n\n{\n  \"canvas_uuid\": \"c020105d-ea44-478c-a684-d54febc13508\",\n  \"node_id\": \"identify-canvas-workflows-test-node\",\n  \"selections\": {\n    \"Flujo principal\": {\n      \"description\": \"test\",\n      \"node_ids\": [\"node_publish_test_start\", \"node_publish_test_action\"],\n      \"edge_ids\": [\"edge_publish_test_start_to_action\"]\n    }\n  }\n}\n\nNo omitas canvas_uuid, node_id ni selections. No uses otro canvas_uuid.",
   "event_type": "function_call",
   "extra_params": {
     "is_operator_params_test": true
